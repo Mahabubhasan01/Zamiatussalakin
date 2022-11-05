@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+
+    <!-- font awesome cdn link  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" />
+  </head>
+  <body>
+    <!-- header section starts  -->
+
+    <header class="header">
+      <a href="#" class="logo"
+        ><span>Z</span>amia<span>T</span>ussa<span>L</span>akin</a
+      >
+
+      <nav class="navbar">
+        <a href="#banner">Home</a>
+        <a href="#posts">Posts</a>
+        <a href="{% url 'auth' %}">Login</a>
+        <a href="#contact">contact me</a>
+      </nav>
+
+      <div class="icons">
+        <i class="fas fa-bars" id="menu-bars"></i>
+        <i class="fas fa-search" id="search-icon"></i>
+      </div>
+
+      <form action="" class="search-form">
+        <input
+          type="search"
+          name=""
+          placeholder="search here..."
+          id="search-box"
+        />
+        <label for="search-box" class="fas fa-search"></label>
+      </form>
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- banner section starts  -->
+
+    <section class="banner" id="banner">
+      <div class="content">
+        <h3>explore the nature</h3>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+          laboriosam?
+        </p>
+        <a href="#" class="btn">my blogs</a>
+      </div>
+    </section>
+
+    <!-- banner section ends -->
+
+    <!-- posts section starts  -->
+
+    <section class="container" id="posts">
+      <div class="posts-container">
+        {% if blogs %} {% for blog in blogs %}
+        <div class="post">
+          <img src="{{blog.img.url}}" alt="not found" class="image" />
+          <div class="date">
+            <i class="far fa-clock"></i>
+            <span>{{blog.date}}</span>
+          </div>
+          
+          <h3 class="title"><a href="{%url 'blog_detail' blog.id%}">{{blog.title}}</h3>
+          <p class="text">{{blog.info}}</p>
+          <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto,
+            reiciendis fugiat quas nemo quia omnis repellat obcaecati quaerat
+            voluptates fuga error dicta cupiditate pariatur soluta dolorum quis
+            eum quibusdam quam?
+          </p>
+          <div class="links">
+            <a href="#" class="user">
+              <i class="far fa-user"></i>
+              <span>{{blog.author}}</span>
+            </a>
+            <a href="#" class="icon">
+              <i class="far fa-comment"></i>
+              <span>(45)</span>
+            </a>
+            <a href="#" class="icon">
+              <i class="far fa-share-square"></i>
+              <span>(29)</span>
+            </a>
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+
+      <div class="sidebar">
+        <div class="box">
+          <h3 class="title">about me</h3>
+          <div class="about">
+            <img src="images/user.png" alt="" />
+            <h3>Muhammad Muneer</h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Similique, officia.
+            </p>
+            <div class="follow">
+              <a href="#" class="fab fa-facebook-f"></a>
+              <a href="#" class="fab fa-twitter"></a>
+              <a href="#" class="fab fa-instagram"></a>
+              <a href="#" class="fab fa-linkedin"></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3 class="title">categories</h3>
+          <div class="category">
+            {% for blog in blogs %}
+            <a href="{% url 'category' blog.category %}"> {{blog.category}} <span>{{blogs.count}}</span> </a>
+            {% endfor %}
+            {% comment %} <a href="#"> technology <span>22</span> </a>
+            <a href="{% url 'category' %}"> fashion <span>17</span> </a>
+            <a href="#"> study <span>48</span> </a>
+            <a href="#"> science <span>39</span> </a>
+            <a href="#"> music <span>59</span> </a>
+            <a href="#"> public <span>12</span> </a>
+            <a href="#"> business <span>32</span> </a>
+            <a href="#"> sports <span>18</span> </a> {% endcomment %}
+          </div>
+        </div>
+
+        <div class="box">
+          <h3 class="title">popular posts</h3>
+          <div class="p-post">
+            {% for blog in blogs %}
+            <a href="{% url 'blog_detail' blog.id %}">
+              <h3>{{blog.title}}</h3>
+              <span><i class="far fa-clock"></i>{{blog.date}}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="box">
+          <h3 class="title">popular tags</h3>
+          <div class="tags">
+            <a href="#">travel</a>
+            <a href="#">photo</a>
+            <a href="#">science</a>
+            <a href="#">biology</a>
+            <a href="#">aliens</a>
+            <a href="#">nature</a>
+            <a href="#">mountain</a>
+            <a href="#">river</a>
+            <a href="#">camp</a>
+            <a href="#">landscape</a>
+            <a href="#">world</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- posts section ends -->
+
+    <!-- contact section starts  -->
+
+    <section class="contact" id="contact">
+      <form action="">
+        <h3>contact me</h3>
+        <div class="inputBox">
+          <input type="text" placeholder="name" />
+          <input type="email" placeholder="email" />
+        </div>
+        <div class="inputBox">
+          <input type="number" placeholder="number" />
+          <input type="text" placeholder="subject" />
+        </div>
+        <textarea
+          name=""
+          placeholder="message"
+          id=""
+          cols="30"
+          rows="10"
+        ></textarea>
+        <input type="submit" value="send message" class="btn" />
+      </form>
+    </section>
+
+    <!-- contact section ends -->
+
+    <!-- footer section starts  -->
+
+    <section class="footer">
+      <div class="follow">
+        <a href="#" class="fab fa-facebook-f"></a>
+        <a href="#" class="fab fa-twitter"></a>
+        <a href="#" class="fab fa-instagram"></a>
+        <a href="#" class="fab fa-linkedin"></a>
+      </div>
+
+      <div class="credit">
+        <span>Zamiatussalakin</span> | all rights reserved
+      </div>
+    </section>
+
+    <!-- footer section ends -->
+
+    <!-- custom js file link  -->
+    <script src="{% static 'js/script.js'%}"></script>
+  </body>
+</html>
