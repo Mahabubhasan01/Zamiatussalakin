@@ -190,7 +190,8 @@
 </style>
 <div class="overlay">
   <!-- LOGN IN FORM by Omar Dsoky -->
-  <form>
+  <form method="POST">
+    {% csrf_token %}
     <!--   con = Container  for items in the form-->
     <div class="con">
       <!--     Start  header Content  -->
@@ -207,8 +208,7 @@
         <span class="input-item">
           <i class="fa fa-user-circle"></i>
         </span>
-        {% endcomment %} {% for form in forms %} {{form}} 
-        {% endfor %}
+        {% endcomment %} {% for form in forms %} {{form}} {% endfor %}
         <!--   user name Input-->
         {% comment %}
         <input

@@ -174,12 +174,12 @@
             datetime="2022-02-14T20:24:54+00:00"
             >{{blog.date}}</time
           >
-          <p class="post-item__meta post-item__meta--category">{{blog.category}}</p>
+          <p class="post-item__meta post-item__meta--category">
+            {{blog.category}}
+          </p>
         </div>
 
-        <div class="post-item__excerpt">
-          {{blog.info | truncatechars:100}}
-        </div>
+        <div class="post-item__excerpt">{{blog.info | truncatechars:100}}</div>
 
         <div class="post-item__read-more-wrapper">
           <p class="post-item__read-more">Read more</p>
@@ -187,5 +187,8 @@
       </div>
     </a>
   </article>
-  {% endfor %} {% endif %}
+  {% endfor %}
+  {% else %}
+  <h1>Does not have any categories</h1>
+  {% endif %}
 </section>

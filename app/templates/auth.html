@@ -99,7 +99,24 @@
     cursor: pointer;
   }
   /* inputs form  */
-  input[class="form-input"] {
+  input[type="text"] {
+    width: 240px;
+    height: 50px;
+
+    margin-top: 2%;
+    padding: 15px;
+
+    font-size: 16px;
+    font-family: "Abel", sans-serif;
+    color: #5e6472;
+
+    outline: none;
+    border: none;
+
+    border-radius: 0px 5px 5px 0px;
+    transition: 0.2s linear;
+  }
+  input[type="password"] {
     width: 240px;
     height: 50px;
 
@@ -190,7 +207,8 @@
 </style>
 <div class="overlay">
   <!-- LOGN IN FORM by Omar Dsoky -->
-  <form>
+  <form method='POST'>
+    {% csrf_token %}
     <!--   con = Container  for items in the form-->
     <div class="con">
       <!--     Start  header Content  -->
@@ -208,39 +226,10 @@
         </span>
         <!--   user name Input-->
         {% for form in forms %} {{form}} {% endfor %} 
-        {% comment %}
-        <input
-          name="username"
-          class="form-input"
-          id="txt-input"
-          type="text"
-          placeholder="@UserName"
-          required
-        />
-        {% endcomment %}
-
-        {% comment %} <br />
-
-        <!--   Password -->
-
-        <span class="input-item">
-          <i class="fa fa-key"></i>
-        </span>
-        <!--   Password Input-->
-        <input
-          class="form-input"
-          type="password"
-          placeholder="Password"
-          id="pwd"
-          name="password"
-          required
-        />
-
-        <!--      Show/hide password  -->
-        <span>
-          <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
-        </span> {% endcomment %}
-
+        <br/>
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
         <br />
         <!--        buttons -->
         <!--      button LogIn -->

@@ -124,17 +124,12 @@
         <div class="box">
           <h3 class="title">categories</h3>
           <div class="category">
-            {% for blog in blogs %}
-            <a href="{% url 'category' blog.category %}"> {{blog.category}} <span>{{blogs.count}}</span> </a>
-            {% endfor %}
-            {% comment %} <a href="#"> technology <span>22</span> </a>
-            <a href="{% url 'category' %}"> fashion <span>17</span> </a>
-            <a href="#"> study <span>48</span> </a>
-            <a href="#"> science <span>39</span> </a>
-            <a href="#"> music <span>59</span> </a>
-            <a href="#"> public <span>12</span> </a>
-            <a href="#"> business <span>32</span> </a>
-            <a href="#"> sports <span>18</span> </a> {% endcomment %}
+            <a href="{% url 'category' 'food' %}"> food <span>{{catfood.count}}</span> </a>
+            <a href="{% url 'category' 'travel' %}"> travel <span>{{cat.count}}</span> </a>
+            <a href="{% url 'category' 'fashion' %}"> fashion <span>{{catf.count}}</span> </a>
+            <a href="{% url 'category' 'study' %}"> study <span>{{cats.count}}</span> </a>
+            <a href="{% url 'category' 'science' %}"> science <span>{{catsc.count}}</span> </a>
+            <a href="{% url 'category' 'music' %}"> music <span>{{catm.count}}</span> </a>
           </div>
         </div>
 

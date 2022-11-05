@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 
+from app.models import BlogPost
+
 
 class Register_User(UserCreationForm):
     password1 = forms.CharField(
@@ -26,3 +28,16 @@ class Login_Form(AuthenticationForm):
         attrs={'class': 'form-input', 'placeholder': 'username'}))
     password = forms.CharField(label='Password', strip=False, widget=forms.PasswordInput(
         attrs={'class': 'form-input', 'placeholder': 'password'}))
+
+
+class Add_Post(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ['author', 'title', 'info','qoutes',  'img', 'category', ]
+        """ labels = {'first_name': 'First Name',
+                  'last_name': 'Last Name', 'email': 'Email', } """
+        widgets = {
+            'author': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'type author name'}),
+            'title': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'type new blog title name'}),
+            'info': forms.Textarea(attrs={'class': 'form-input', 'placeholder': 'type blog text here'}),
+            'qoutes': forms.Textarea(attrs={'class': 'form-input', 'placeholder': 'type   valid email'}), }

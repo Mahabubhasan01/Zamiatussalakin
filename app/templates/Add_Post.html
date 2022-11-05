@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css'%}" />
+<title>{{title}}</title>
+<section class="contact" id="contact">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <h3>Add New blog post</h3>
+    <div class="inputBox">{% for add in addpost %} {{add}} {% endfor %}</div>
+    <input type="submit" value="send message" class="btn" />
+  </form>
+</section>
+<script src="{% static 'js/script.js'%}"></script>
