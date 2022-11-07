@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from api.models import  Blog, Comment
-from app.models import BlogPost,UserComment
+from api.models import Blog, Comment
+from app.models import BlogPost, UserComment, Notice
 # Serializers define the API representation.
 
 
@@ -21,4 +21,10 @@ class BlogSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserComment
+        fields = '__all__'
+
+
+class NoticeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notice
         fields = '__all__'

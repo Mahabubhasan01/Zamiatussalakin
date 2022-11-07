@@ -25,25 +25,36 @@
       >
 
       <nav class="navbar">
-        <a href="#banner">Home</a>
-        <a href="#posts">Posts</a>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'blogs' %}">Posts</a>
         <a href="{% url 'auth' %}">Login</a>
         <a href="#contact">contact me</a>
       </nav>
 
       <div class="icons">
         <i class="fas fa-bars" id="menu-bars"></i>
-        <i class="fas fa-search" id="search-icon"></i>
+        <i class="fas fa-bell" id="search-icon"><span class='notify-number'>{{totalnotify}}</span></i>
       </div>
 
       <form action="" class="search-form">
-        <input
+        {% comment %} <input
           type="search"
           name=""
           placeholder="search here..."
           id="search-box"
         />
         <label for="search-box" class="fas fa-search"></label>
+         {% endcomment %}
+
+         {% for notice in notices %}
+         <a href="{% url 'notice_details' notice.id %}"><div style="display: flex">
+          <p><span class="background-color:red">➼</span> {{notice.title | truncatechars:'10'}}</p>
+
+          <p>{{notice.date | slice:':2'}}</p>
+
+          <small>{{notice.author}}</small>
+         </div></a>
+         {% endfor %}
       </form>
     </header>
 
@@ -137,7 +148,7 @@
           <h3 class="title">popular posts</h3>
           <div class="p-post">
             {% for blog in blogs %}
-            <a href="{% url 'blog_detail' blog.id %}">
+            <a href="{% url 'blog_detail'  blog.id %}">
               <h3>{{blog.title}}</h3>
               <span><i class="far fa-clock"></i>{{blog.date}}</span>
             </a>
@@ -211,5 +222,7 @@
 
     <!-- custom js file link  -->
     <script src="{% static 'js/script.js'%}"></script>
+   {% comment %}  <script>  setTimeout('location.reload()', 60000)
+    </script> {% endcomment %}
   </body>
 </html>

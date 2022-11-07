@@ -1,6 +1,4 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css'%}" />
-<title>{{title}}</title>
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
   * {
@@ -46,6 +44,7 @@
   }
 
   body {
+    overflow: hidden;
     font-family: "Poppins", sans-serif;
     background-color: var(--app-bg);
     -webkit-font-smoothing: antialiased;
@@ -59,6 +58,7 @@
     max-height: 100%;
     max-width: 1280px;
     display: flex;
+    overflow: hidden;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     max-width: 2000px;
     margin: 0 auto;
@@ -627,8 +627,8 @@
       </div>
     </div>
     <ul class="sidebar-list">
-      <li class="sidebar-list-item">
-        <a href="#">
+      <li class="sidebar-list-item  active">
+        <a href="{% url 'dashboard_home' %}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"
@@ -668,7 +668,7 @@
           <span>Products</span>
         </a>
       </li>
-      <li class="sidebar-list-item active">
+      <li class="sidebar-list-item">
         <a href="{% url 'add_post' %}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -722,7 +722,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="feather feather-bell"
+            class="feather feather-user"
           >
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
             <path d="M13.73 21a2 2 0 0 1-3.46 0" />
@@ -747,18 +747,16 @@
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
             <path d="M13.73 21a2 2 0 0 1-3.46 0" />
           </svg>
+
           <span>Users</span>
         </a>
       </li>
     </ul>
     <div class="account-info">
       <div class="account-info-picture">
-        <img
-          src="https://images.unsplash.com/photo-1527736947477-2790e28f3443?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE2fHx3b21hbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
-          alt="Account"
-        />
+        <img src="{% static 'images/avatar.png'%}" alt="Account" />
       </div>
-      <div class="account-info-name">Monica G.</div>
+      <div class="account-info-name"><a href="{% url 'logout'%}">Logout</a></div>
       <button class="account-info-more">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -780,151 +778,6 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header">
-      <h1 class="app-content-headerText">Products</h1>
-      <button class="mode-switch" title="Switch Theme">
-        <svg
-          class="moon"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <defs></defs>
-          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-        </svg>
-      </button>
-      <a href="{%url 'add_post'%}"
-        ><button class="app-content-headerButton">Add Product</button></a
-      >
-    </div>
-    <div class="app-content-actions">
-      <input class="search-bar" placeholder="Search..." type="text" />
-      <div class="app-content-actions-wrapper">
-        <div class="filter-button-wrapper">
-          <button class="action-button filter jsFilter">
-            <span>Filter</span
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-filter"
-            >
-              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-            </svg>
-          </button>
-          <div class="filter-menu">
-            <label>Category</label>
-            <select>
-              <option>All Categories</option>
-              <option>Furniture</option>
-              <option>Decoration</option>
-              <option>Kitchen</option>
-              <option>Bathroom</option>
-            </select>
-            <label>Status</label>
-            <select>
-              <option>All Status</option>
-              <option>Active</option>
-              <option>Disabled</option>
-            </select>
-            <div class="filter-menu-buttons">
-              <button class="filter-button reset">Reset</button>
-              <button class="filter-button apply">Apply</button>
-            </div>
-          </div>
-        </div>
-        <button class="action-button list active" title="List View">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-list"
-          >
-            <line x1="8" y1="6" x2="21" y2="6" />
-            <line x1="8" y1="12" x2="21" y2="12" />
-            <line x1="8" y1="18" x2="21" y2="18" />
-            <line x1="3" y1="6" x2="3.01" y2="6" />
-            <line x1="3" y1="12" x2="3.01" y2="12" />
-            <line x1="3" y1="18" x2="3.01" y2="18" />
-          </svg>
-        </button>
-        <button class="action-button grid" title="Grid View">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-grid"
-          >
-            <rect x="3" y="3" width="7" height="7" />
-            <rect x="14" y="3" width="7" height="7" />
-            <rect x="14" y="14" width="7" height="7" />
-            <rect x="3" y="14" width="7" height="7" />
-          </svg>
-        </button>
-      </div>
-    </div>
-    <section class="contact" id="contact">
-      <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h3>Add New blog post</h3>
-        <div class="inputBox">
-          {% for add in addpost %} {{add}} {% endfor %}
-        </div>
-        <input type="submit" value="Add Post" class="btn" />
-      </form>
-    </section>
+    {% include 'random.html' %}
   </div>
 </div>
-<script>
-  document.querySelector(".jsFilter").addEventListener("click", function () {
-    document.querySelector(".filter-menu").classList.toggle("active");
-  });
-
-  document.querySelector(".grid").addEventListener("click", function () {
-    document.querySelector(".list").classList.remove("active");
-    document.querySelector(".grid").classList.add("active");
-    document.querySelector(".products-area-wrapper").classList.add("gridView");
-    document
-      .querySelector(".products-area-wrapper")
-      .classList.remove("tableView");
-  });
-
-  document.querySelector(".list").addEventListener("click", function () {
-    document.querySelector(".list").classList.add("active");
-    document.querySelector(".grid").classList.remove("active");
-    document
-      .querySelector(".products-area-wrapper")
-      .classList.remove("gridView");
-    document.querySelector(".products-area-wrapper").classList.add("tableView");
-  });
-
-  var modeSwitch = document.querySelector(".mode-switch");
-  modeSwitch.addEventListener("click", function () {
-    document.documentElement.classList.toggle("light");
-    modeSwitch.classList.toggle("active");
-  });
-</script>
-<script src="{% static 'js/script.js'%}"></script>
