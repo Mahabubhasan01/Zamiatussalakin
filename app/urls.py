@@ -17,5 +17,6 @@ urlpatterns = [
     path('users', views.Users, name='users'),
     path('dashboard_home', views.Dashboard_Home, name='dashboard_home'),
     path('delete-user/<int:pk>/', views.Delete_User, name='delete-user'),
+    path('make-admin/<int:pk>/', views.Super_User, name='make-admin'),
     path('logout', views.User_logout, name='logout'),
 ]

@@ -1017,16 +1017,27 @@
           <span class="cell-label">Post By:</span>None {% endif %}
         </div>
         <div class="product-cell price">
+          {% if user.is_superuser %}
           <span class="cell-label">Actions:</span>
-          <a href="{% url 'delete-user'  user.id %}">
+          <a href="">
+            <span class="status disabled">Admin</span></a
+          >
+          {% else %}
+          <span class="cell-label">Actions:</span>
+          <a href="{% url 'make-admin'  user.id %}">
             <span class="status disabled">Make Admin</span></a
           >
+          {% endif %}
         </div>
         <div class="product-cell status-cell">
+          {% if user.is_superuser %}
+          <button disabled="disabled">Admin</button>
+          {% else %}
           <span class="cell-label">Actions:</span>
           <a href="{% url 'delete-user'  user.id %}">
             <span class="status disabled">Delete</span></a
           >
+          {% endif %}
         </div>
       </div>
       {% endfor %}

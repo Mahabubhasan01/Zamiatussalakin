@@ -965,17 +965,22 @@
             <div class="author-detail">
               <div class="author-name">{{blog.author}}</div>
               <div class="author-info">
-                53K views <span class="seperate"></span>{{blog.date}}
+                {% if blog.views == 1000 %}
+                {{blog.views}}K views
+                {% else %}
+                {{blog.views}} views
+                {% endif %} 
+                <span class="seperate"></span>{{blog.date}}
               </div>
             </div>
           </div>
-          <div class="main-blog__time">7 min</div>
+          <div class="main-blog__time">{{blog.get_readtime}}</div>
         </div>
         {% if blogg %}
         <div class="main-blog anim" style="--delay: 0.2s">
             <div class="main-blog__title">{{blogg.title}}</div>
             <div class="main-blog__author tips">
-              <div class="main-blog__time">7 min</div>
+              <div class="main-blog__time">{{blogg.get_readtime}}</div>
               <div class="author-img__wrapper">
                 <svg
                   viewBox="0 0 24 24"
@@ -995,7 +1000,11 @@
               </div>
               <div class="author-detail">
                 <div class="author-name">{{blogg.author}}</div>
-                <div class="author-info">53K views <span></span>{{blogg.date}}</div>
+                <div class="author-info">{% if blog.views == 1000 %}
+                  {{blog.views}}K views
+                  {% else %}
+                  {{blog.views}} views
+                  {% endif %} <span></span>{{blogg.date}}</div>
               </div>
             </div>
           </div>
@@ -1006,7 +1015,7 @@
       <div class="videos">
         {% for blog in blogs %}
         <div class="video anim" style="--delay: 0.4s">
-            <div class="video-time">8 min</div>
+            <div class="video-time">{{blog.get_readtime}}</div>
             <div class="video-wrapper">
                 <img src="{{blog.img.url}}" alt="">
               <div class="author-img__wrapper video-author">
@@ -1032,7 +1041,11 @@
               {{blog.title}}
             </div>
             <div class="video-view">
-              54K views<span class="seperate video-seperate"></span>{{blog.date}}
+              {% if blog.views == 1000 %}
+                {{blog.views}}K views
+                {% else %}
+                {{blog.views}} views
+                {% endif %} <span class="seperate video-seperate"></span>{{blog.date}}
             </div>
           </div>
         {% endfor %}

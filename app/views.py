@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from app.models import BlogPost, Notice, UserComment
 from urllib.request import urlopen
@@ -43,10 +44,20 @@ def Home(request):
 
 
 def Blog_Detail(request, pk):
-    blog = BlogPost.objects.get(id=pk)
-    print(blog)
-    template_name = 'blog_detail.html'
-    return render(request, template_name, {'blog': blog})
+    post = get_object_or_404(BlogPost, id=pk)
+
+    # Update the view count on each visit to this post.
+    if post:
+        post.views += 0
+        post.save()
+
+        # Or
+        post.update_views()
+    context = {
+        'blog': post,
+    }
+
+    return render(request, "blog_detail.html", context)
 
 
 def Notice_Details(request, pk):
@@ -159,6 +170,15 @@ def Users(request):
     return render(request, template_name, context)
 
 
+def Super_User(request, pk):
+    user = User.objects.get(id=pk)
+    user.is_superuser = True
+    user.is_staff = True
+    user.save()
+    messages.success(request, 'successfully admin done')
+    return redirect('users')
+
+
 def Delete_User(request, pk):
     User.objects.get(id=pk).delete()
     print(User)
@@ -170,13 +190,19 @@ def Dashboard_Home(request):
     blogs = BlogPost.objects.all().order_by('-date')
     blog = BlogPost.objects.all().first()
     blogg = BlogPost.objects.all().last()
-    context = {
-        'blogs': blogs,
-        'blog': blog,
-        'blogg': blogg,
-        'title': 'Dashboard home'
-    }
-    return render(request, 'dashboard_home.html', context)
+    if blog:
+        blog.views += 0
+        blog.save()
+
+        # Or
+        blog.update_views()
+        context = {
+            'blogs': blogs,
+            'blog': blog,
+            'blogg': blogg,
+            'title': 'Dashboard home'
+        }
+        return render(request, 'dashboard_home.html', context)
 
 
 def Total_Blog_Post(request):

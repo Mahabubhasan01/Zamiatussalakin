@@ -24,3 +24,4 @@ window.onscroll = () =>{
   searchIcon.classList.remove('fa-times');
   searchForm.classList.remove('active');
 }
+

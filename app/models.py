@@ -2,6 +2,7 @@ from ast import mod
 from django.db import models
 from django.conf import settings
 import uuid
+import readtime
 
 
 class BlogPost(models.Model):
@@ -17,12 +18,21 @@ class BlogPost(models.Model):
     category = models.CharField(
         max_length=10, choices=category, blank=True, default='travel')
     date = models.DateTimeField(auto_now_add=True)
+    views = models.IntegerField(default=0,blank=True)  # Upon creation the views will be 0
 
     def __str__(self) -> str:
         return self.title
 
     def blog_Category(self):
         return self.category
+
+    def get_readtime(self):
+        result = readtime.of_text(self.info)
+        return result.text
+
+    def update_views(self, *args, **kwargs):
+        self.views = self.views + 1
+        super(BlogPost, self).save(*args, **kwargs)
 
 
 class UserComment(models.Model):
