@@ -1,23 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from app.models import BlogPost, Notice, UserComment
-from urllib.request import urlopen
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from .forms import Register_User, Login_Form, Add_Post
 from django.contrib.auth.forms import AuthenticationForm
-import json
 from django.contrib import messages
-
-# Create your views here.
-""" url = 'http://127.0.0.1:8000/api/blogs/'
-response = urlopen(url)
-blogs = json.loads(response.read())
-print(blogs) """
 
 
 def Home(request):
-    blogs = BlogPost.objects.all().order_by('-date')
+    blogs = BlogPost.objects.all().order_by('-date')[:3]
+    blogsd = BlogPost.objects.all().order_by('date')
     catfood = BlogPost.objects.filter(category='food')
     cat1 = BlogPost.objects.filter(category='travel')
     catf = BlogPost.objects.filter(category='fashion')
@@ -29,6 +22,7 @@ def Home(request):
     context = {
         'title': 'home',
         'blogs': blogs,
+        'blogsd': blogsd,
         'catfood': catfood,
         'cat': cat1,
         'catf': catf,
@@ -55,13 +49,14 @@ def Blog_Detail(request, pk):
         post.update_views()
     context = {
         'blog': post,
+        'title': post.title
     }
 
     return render(request, "blog_detail.html", context)
 
 
 def Notice_Details(request, pk):
-    blog = Notice.objects.get(id=pk)
+    blog = get_object_or_404(Notice, id=pk)
     template_name = 'Notice_detail.html'
     return render(request, template_name, {'blog': blog})
 
@@ -124,8 +119,10 @@ def Category(request, cat):
     blogs = BlogPost.objects.filter(category=cat)
     template_name = 'category.html'
     return render(request, template_name, {'blogs': blogs})
+def Inbox_chatting(request):
+    return render(request,'inbox_chat.html')
 
-
+@login_required(login_url='auth')
 def Dashboard(request):
     blogs = BlogPost.objects.all().order_by('-date')
     context = {
@@ -136,12 +133,14 @@ def Dashboard(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='auth')
 def Delete_Post(request, pk):
     BlogPost.objects.get(id=pk).delete()
     messages.success(request, 'Product Remove From Wishlist...')
     return redirect('dashboard')
 
 
+@login_required(login_url='auth')
 def Add_New_Post(request):
     if request.method == 'POST':
         post = Add_Post(request.POST)
@@ -162,6 +161,7 @@ def NoticeWithNotifications(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='auth')
 def Users(request):
     users = User.objects.all().order_by('-id')
     template_name = 'users.html'
@@ -170,6 +170,7 @@ def Users(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url='auth')
 def Super_User(request, pk):
     user = User.objects.get(id=pk)
     user.is_superuser = True
@@ -179,6 +180,7 @@ def Super_User(request, pk):
     return redirect('users')
 
 
+@login_required(login_url='auth')
 def Delete_User(request, pk):
     User.objects.get(id=pk).delete()
     print(User)
@@ -186,6 +188,7 @@ def Delete_User(request, pk):
     return redirect('users')
 
 
+@login_required(login_url='auth')
 def Dashboard_Home(request):
     blogs = BlogPost.objects.all().order_by('-date')
     blog = BlogPost.objects.all().first()
@@ -218,6 +221,7 @@ def Total_Blog_Post(request):
     return render(request, 'total_post.html', context)
 
 
+@login_required(login_url='auth')
 def User_logout(request):
     logout(request)
     return redirect('auth')

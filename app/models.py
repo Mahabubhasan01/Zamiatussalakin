@@ -1,4 +1,3 @@
-from ast import mod
 from django.db import models
 from django.conf import settings
 import uuid
@@ -18,7 +17,7 @@ class BlogPost(models.Model):
     category = models.CharField(
         max_length=10, choices=category, blank=True, default='travel')
     date = models.DateTimeField(auto_now_add=True)
-    views = models.IntegerField(default=0,blank=True)  # Upon creation the views will be 0
+    views = models.IntegerField(default=0,blank=True)  
 
     def __str__(self) -> str:
         return self.title

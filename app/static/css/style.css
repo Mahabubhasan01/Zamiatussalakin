@@ -137,7 +137,7 @@ section{
 
 .banner{
     min-height: 80vh;
-    background:url(../images/banner.png) no-repeat;
+    background:url("static/images/banner.webp") no-repeat;
     background-size: cover;
     background-position: center;
     display: grid;

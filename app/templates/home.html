@@ -62,14 +62,16 @@
 
     <!-- banner section starts  -->
 
-    <section class="banner" id="banner">
-      <div class="content">
-        <h3>explore the nature</h3>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          laboriosam?
-        </p>
-        <a href="#" class="btn">my blogs</a>
+    <section >
+      <div class="banner" id="banner">
+        <div class="content">
+          <h3>explore the nature</h3>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+            laboriosam?
+          </p>
+          <a href="#" class="btn">my blogs</a>
+        </div>
       </div>
     </section>
 
@@ -87,14 +89,8 @@
             <span>{{blog.date}}</span>
           </div>
           
-          <h3 class="title"><a href="{%url 'blog_detail' blog.id%}">{{blog.title}}</h3>
-          <p class="text">{{blog.info}}</p>
-          <p class="text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto,
-            reiciendis fugiat quas nemo quia omnis repellat obcaecati quaerat
-            voluptates fuga error dicta cupiditate pariatur soluta dolorum quis
-            eum quibusdam quam?
-          </p>
+          <h3 class="title"><a href="{%url 'blog_detail' blog.id %}">{{blog.title}}</h3>
+          <p class="text">{{blog.info | truncatechars:"199"}}Learn more</p>
           <div class="links">
             <a href="#" class="user">
               <i class="far fa-user"></i>
@@ -174,7 +170,9 @@
         </div>
       </div>
     </section>
-
+    <section>
+      {% include 'blog_slider.html' %}
+    </section>
     <!-- posts section ends -->
 
     <!-- contact section starts  -->

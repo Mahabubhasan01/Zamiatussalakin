@@ -1,1 +1,0 @@
-web: gunicorn zamia.wsgi --log-file -
